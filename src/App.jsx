@@ -14,6 +14,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import {
+	BrowserRouter as Router,
+	Route,
+	Routes,
+	Navigate,
+} from 'react-router-dom';
+import FirstScreen from './pages/FirstRoutine';
 
 function Copyright() {
 	return (
@@ -124,11 +131,18 @@ const RoutineButton = withStyles({
 export default function SignInSide() {
 	const classes = useStyles();
 
-	const [setAge] = React.useState('');
+	const [age, setAge] = React.useState('');
 
 	const handleChange = (event) => {
 		setAge(event.target.value);
 	};
+
+	const handleButtonClick = () => {
+		// Redirigir a la página FirstScreen
+		// Puedes ajustar la ruta según sea necesario
+		return <Navigate to="/pages/FirstRoutine" />;
+	};
+
 	return (
 		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
@@ -223,18 +237,26 @@ export default function SignInSide() {
 							</Select>
 						</FormControl>
 						{/* <FormControlLabel
-							control={<Checkbox value="remember" color="primary" />}
-							label="Remember me"
-						/> */}
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            /> */}
+
 						<RoutineButton
+							href="./pages/FirstRoutine"
 							variant="contained"
 							color="primary"
 							fullWidth
 							disableRipple
 							className={classes.margin}
+							onClick={handleButtonClick}
 						>
 							Generar Rutina
 						</RoutineButton>
+						<Router>
+							<Routes>
+								<Route path="/pages/FirstRoutine" element={<FirstScreen />} />
+							</Routes>
+						</Router>
 						<Box mt={5}>
 							<Copyright />
 						</Box>
